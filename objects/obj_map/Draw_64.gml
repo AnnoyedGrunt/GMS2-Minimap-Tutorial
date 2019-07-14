@@ -18,6 +18,6 @@ for(var i = 0; i < array_length_1d(objects_to_draw); i += 2) {
 			current_right = instance.bbox_right * scale,
 			current_bottom = instance.bbox_bottom * scale;
 
-		draw_rectangle(x + current_left, x + current_top, x + current_right, x + current_bottom, false);
+		draw_rectangle(x + current_left, y + current_top, x + current_right, y + current_bottom, false);
 	}
 }
