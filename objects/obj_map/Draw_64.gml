@@ -1,8 +1,10 @@
 ///@description Draw GUI Event of obj_map
 
+//Drawing the Background
 draw_set_color(background_color);
 draw_rectangle(x, y, x + width, y + height, false);
 
+//Drawing Instances
 for(var i = 0; i < array_length_1d(objects_to_draw); i += 2) {
 	var map_object_index = objects_to_draw[i],
 		map_object_color = objects_to_draw[i + 1];
