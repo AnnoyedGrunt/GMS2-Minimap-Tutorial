@@ -14,8 +14,8 @@ The project features a single room with a player controller `obj_player` and a n
 We don’t place `obj_map` directly but rather let our  `obj_player` instantiate it. This is a personal preference, and the map would work just the same if placed directly.
 
 ### Fundamentals: Bounding Boxes
-When adding sprites to GameMaker: Studio 2, we have the option to specify a /mask/ for our sprite which defines its collision area. In a platform game, for example, we may decide to give the powerup masks that cover the entire sprite or even a larger area so they’re easier to pick up, or do the same for enemies so they’re easier to hit, while also making their attacks have smaller masks that make them easier to dodge. 
-Masks can have different shapes, but regardless of what their shape is they can always be enclosed by a rectangle. Said rectangle is called the *bounding box* and GameMaker: Studio 2 gives us four variables which help us know where it is:
+When adding sprites to GameMaker: Studio 2, we have the option to specify a *mask* for our sprite which defines its collision area. In a platform game, for example, we may decide to give power-ups a mask that covers the entire sprite or even a larger area so that they're easier to pick up, or do the same for enemies so they’re easier to hit, while also making their attacks have smaller masks that make them easier to dodge. 
+Masks can have different shapes, but regardless of what their shape is they can always be enclosed by a rectangle. Said rectangle is called the *bounding box* and GameMaker: Studio 2 gives us four variables that tell us where it is:
 
 ```
 bbox_left
@@ -54,7 +54,7 @@ background_color = c_gray;
 ```
 
 `x` and `y`, as usual, refer to where the instance is, but since we’re going to draw using the Draw GUI event the map will be drawn at 32 pixels away from the left and top of the screen, rather than 32 pixels away from the left and top of the room. Even when we move around, the map will remain in place.
-`scale`, as the name implies, represents the scaling that will be applied to our map. A scaling of 0.12 makes the map about ~1/100 of the size of the room, as both the width and height of the map will be a little bit more than 1/10 if their original size.
+`scale`, as the name implies, represents the scaling that will be applied to our map. A scaling of 0.12 makes the map about ~1/100 of the size of the room, as both the width and height of the map will be a little bit more than 1/10 of their original size.
 `width` and `height` are calculated depending on the scale and we’ll use them later to add a background to our map.
 `objects_to_draw` contains all the object types that should appear in our map, as well as the associated color. We make sure to specify them in this specific order, creating couples of (object index, color). Notice how we place each couple on its own line to make this concept clearer.
 `background_color` as the name implies, this will be the color of the map’s background.
@@ -111,7 +111,7 @@ var map_object_index = objects_to_draw[i],
 	draw_set_color(map_object_color);
 ```
 
-The aforementioned fact makes itself clear as we unwrap the couple into two variables, and set our color. We make sure to set the color outside the inner for loop: it would work the same if we put it inside, but it would result in useless function calls.
+The aforementioned fact makes itself clear as we unwrap the couple into two variables, and set our color. We make sure to set the color outside the inner for loop: it would work the same if we put it inside, but it would result in useless, excessive function calls.
 
 ```
 for(var j = 0; j < instance_number(map_object_index); j++) {
@@ -131,13 +131,13 @@ var instance = instance_find(map_object_index, j),
 			current_bottom = instance.bbox_bottom * scale;
 ```
 
-Once we have the id of the current instance saved in `instance`, we can find its bounding box and convert it.
+Once we have the id of the current instance saved in `instance`, we can find its bounding box and convert it by multiplying it with the our `scale`.
 
 ```
 draw_rectangle(x + current_left, y + current_top, x + current_right, y + current_bottom, false);
 ```
 
-Finally, we have all the component we need to draw our rectangle in the minimal. Notice how we shift the converted bounding box values by the map’s coordinate. If we didn’t, the map would still be drawn, but it would always be stuck at the top left corner of the GUI.
+Finally, we have all the components we need to draw our rectangle. Notice how we shift the converted bounding box values by the map’s coordinates. If we didn’t, the map would still be drawn, but it would always be stuck at the top left corner of the GUI.
 
 ### Afterword
 The tutorial is done! Your map should work fine now, but this doesn't mean there are no improvements that could be made. Using bounding boxes made our job very simple, but it has its own pitfalls. We are also limited to colored rectangles. Feel free to tinker with the code as provided, and if I have the chance I will create a follow-up tutorial with possible improvements.
